@@ -62,6 +62,6 @@ void AddTestData(ApplicationDbContext context)
     var testHike3 = new Hike { Id = 3, Name = "Hike 3", Description = "Description 3", DifficultyLevel = DifficultyLevel.Easy, Distance = 5, Route = "Route 3" };
     var testHike4 = new Hike { Id = 4, Name = "Hike 4", Description = "Description 3", DifficultyLevel = DifficultyLevel.Uknown, Distance = 8, Route = "Route 4" };
 
-    context.Hikes.AddRange(testHike1, testHike2, testHike3, testHike5);
+    context.Hikes.AddRange(testHike1, testHike2, testHike3, testHike4);
     context.SaveChanges();
 }
