@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "AQ1m0NqTrAU5MSrm34d7aPyKbJe5weggmjPaXx0N8qQ=",
+  "Source": "KvesterosAdminApi",
+  "BasePath": "_content/KvesterosAdminApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

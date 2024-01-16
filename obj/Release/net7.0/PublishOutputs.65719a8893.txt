@@ -1,0 +1,15 @@
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\KvesterosAdminApi.exe
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\appsettings.Development.json
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\appsettings.json
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\KvesterosAdminApi.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\KvesterosAdminApi.deps.json
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\KvesterosAdminApi.runtimeconfig.json
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\KvesterosAdminApi.pdb
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Microsoft.EntityFrameworkCore.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Microsoft.OpenApi.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\kubad\Documents\coding\kvesteros\adminapi\KvesterosAdminApi\bin\Release\net7.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
