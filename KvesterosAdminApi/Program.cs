@@ -15,8 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseInMemoryDatabase("InMemoryDatabase"));
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowEverything", builder =>
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader());
+    });
+
+builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IRepository<Hike>, HikeRepository>();
 
 var imageStorageSettings = new ImageStorageSettings();
@@ -45,13 +52,15 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors("AllowEverything");
+
 // Add test data
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
     AddTestData(context);
-}
+}*/
 
 app.Run();
 
