@@ -11,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddRepositories(typeof(HikeRepository).Assembly);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,9 +25,6 @@ builder.Services.AddCors(options =>
                    .AllowAnyMethod()
                    .AllowAnyHeader());
     });
-
-builder.Services.AddDbContext<ApplicationDbContext>();
-builder.Services.AddScoped<IRepository<Hike>, HikeRepository>();
 
 var imageStorageSettings = new ImageStorageSettings();
 builder.Configuration.GetSection("ImageStorageSettings").Bind(imageStorageSettings);
@@ -63,6 +63,8 @@ app.UseCors("AllowEverything");
 }*/
 
 app.Run();
+
+
 
 void AddTestData(ApplicationDbContext context)
 {
