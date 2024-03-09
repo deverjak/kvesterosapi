@@ -1,8 +1,8 @@
-using KvesterosAdminApi.Models;
-using KvesterosAdminApi.Repository;
+using KvesterosApi.Models;
+using KvesterosApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KvesterosAdminApi.Controllers;
+namespace KvesterosApi.Controllers;
 
 [ApiController]
 [Route("api/")]

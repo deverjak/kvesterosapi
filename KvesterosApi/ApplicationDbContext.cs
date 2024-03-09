@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using KvesterosAdminApi.Models;
+using KvesterosApi.Models;
 
-namespace KvesterosAdminApi
+namespace KvesterosApi
 {
     public class ApplicationDbContext : DbContext
     {

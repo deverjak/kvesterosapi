@@ -1,4 +1,4 @@
-namespace KvesterosAdminApi.Tests;
+namespace KvesterosApi.Tests;
 
 public class UnitTest1
 {

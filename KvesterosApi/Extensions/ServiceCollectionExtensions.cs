@@ -1,4 +1,4 @@
-using KvesterosAdminApi.Repository;
+using KvesterosApi.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;

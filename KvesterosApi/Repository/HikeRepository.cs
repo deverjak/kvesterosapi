@@ -1,7 +1,7 @@
-using KvesterosAdminApi.Models;
+using KvesterosApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace KvesterosAdminApi.Repository;
+namespace KvesterosApi.Repository;
 
 public class HikeRepository : IRepository<Hike>
 {

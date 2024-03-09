@@ -1,8 +1,8 @@
-using KvesterosAdminApi;
-using KvesterosAdminApi.Configuration;
-using KvesterosAdminApi.Models;
-using KvesterosAdminApi.Repository;
-using KvesterosAdminApi.Services;
+using KvesterosApi;
+using KvesterosApi.Configuration;
+using KvesterosApi.Models;
+using KvesterosApi.Repository;
+using KvesterosApi.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 

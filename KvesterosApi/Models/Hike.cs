@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KvesterosAdminApi.Models;
+namespace KvesterosApi.Models;
 
 [Table("Hike")]
 public class Hike
