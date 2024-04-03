@@ -5,30 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace KvesterosApi.Controllers;
 
 [ApiController]
-[Route("api/")]
-public class HikeController : ControllerBase
+public class HikesController(IRepository<Hike> hikeRepository) : ControllerBase
 {
-    private readonly IRepository<Hike> _hikeRepository;
+    private readonly IRepository<Hike> _hikeRepository = hikeRepository;
 
-    public HikeController(IRepository<Hike> hikeRepository)
-    {
-        _hikeRepository = hikeRepository;
-    }
-
-    [HttpGet("[controller]s")]
+    [HttpGet(ApiEndpoints.Hikes.GetAll)]
     public async Task<IActionResult> GetAll()
     {
         var hikes = await _hikeRepository.GetAllAsync();
 
-        if (hikes == null)
-        {
-            return NotFound();
-        }
-
         return Ok(hikes);
     }
 
-    [HttpGet("[controller]/{id}")]
+    [HttpGet(ApiEndpoints.Hikes.Get)]
     public async Task<IActionResult> GetById(int id)
     {
         var hike = await _hikeRepository.GetByIdAsync(id);
