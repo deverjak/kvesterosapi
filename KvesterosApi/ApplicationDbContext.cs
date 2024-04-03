@@ -15,7 +15,7 @@ namespace KvesterosApi
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Replace with your connection string
-            optionsBuilder.UseNpgsql("Host=192.168.0.107;Database=TestDb;Username=postgres;Password=password;");
+            optionsBuilder.UseNpgsql(ConnectionStrings.DefaultConnection);
         }
 
     }
