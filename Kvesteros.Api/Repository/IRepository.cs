@@ -1,4 +1,4 @@
-namespace KvesterosApi.Repository;
+namespace Kvesteros.Api.Repository;
 
 public interface IRepository<T>
 {

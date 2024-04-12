@@ -1,5 +1,5 @@
-using KvesterosApi.Configuration;
-using KvesterosApi.Services;
+using Kvesteros.Api.Configuration;
+using Kvesteros.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

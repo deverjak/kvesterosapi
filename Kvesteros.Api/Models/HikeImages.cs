@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KvesterosApi.Models
+namespace Kvesteros.Api.Models
 {
     [Table("HikeImages")]
     public class HikeImage

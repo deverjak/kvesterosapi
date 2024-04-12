@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace KvesterosApi.Migrations
+namespace Kvesteros.Api.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

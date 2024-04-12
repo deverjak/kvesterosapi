@@ -1,10 +1,10 @@
-using KvesterosApi.Repository;
+using Kvesteros.Api.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Reflection;
 
-namespace KvesterosApi.Extensions;
+namespace Kvesteros.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {

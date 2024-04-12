@@ -1,4 +1,4 @@
-namespace KvesterosApi.Models;
+namespace Kvesteros.Api.Models;
 
 public enum DifficultyLevel
 {

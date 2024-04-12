@@ -1,4 +1,4 @@
-namespace KvesterosApi;
+namespace Kvesteros.Api;
 public static class ApiEndpoints
 {
     private const string ApiBase = "api";

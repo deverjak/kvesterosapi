@@ -1,8 +1,8 @@
-using KvesterosApi.Models;
-using KvesterosApi.Repository;
+using Kvesteros.Api.Models;
+using Kvesteros.Api.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KvesterosApi.Controllers;
+namespace Kvesteros.Api.Controllers;
 
 [ApiController]
 public class HikesController(IRepository<Hike> hikeRepository) : ControllerBase

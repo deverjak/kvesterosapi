@@ -1,4 +1,4 @@
-namespace KvesterosApi
+namespace Kvesteros.Api
 {
     public static class ConnectionStrings
     {

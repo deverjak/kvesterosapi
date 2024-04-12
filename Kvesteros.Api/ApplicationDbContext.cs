@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using KvesterosApi.Models;
+using Kvesteros.Api.Models;
 
-namespace KvesterosApi
+namespace Kvesteros.Api
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {

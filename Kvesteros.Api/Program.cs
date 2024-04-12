@@ -1,8 +1,8 @@
-using KvesterosApi;
-using KvesterosApi.Configuration;
-using KvesterosApi.Extensions;
-using KvesterosApi.Repository;
-using KvesterosApi.Services;
+using Kvesteros.Api;
+using Kvesteros.Api.Configuration;
+using Kvesteros.Api.Extensions;
+using Kvesteros.Api.Repository;
+using Kvesteros.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

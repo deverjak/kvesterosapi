@@ -1,4 +1,4 @@
-namespace KvesterosApi.Services
+namespace Kvesteros.Api.Services
 {
     public interface IImageStorageService
     {
