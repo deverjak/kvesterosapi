@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: deverjak
+      POSTGRES_DB: hikes
+    ports:
+      - "5435:5432"
+

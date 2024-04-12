@@ -3,8 +3,11 @@ using Kvesteros.Api.Configuration;
 using Kvesteros.Api.Extensions;
 using Kvesteros.Api.Repository;
 using Kvesteros.Api.Services;
+using Kvesteros.Application;
+using Kvesteros.Application.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -23,6 +26,8 @@ builder.Services.AddCors(options =>
                    .AllowAnyMethod()
                    .AllowAnyHeader());
     });
+
+builder.Services.AddDatabase(configuration["Database:ConnectionString"]!);
 
 var imageStorageSettings = new ImageStorageSettings();
 builder.Configuration.GetSection("ImageStorageSettings").Bind(imageStorageSettings);
@@ -51,5 +56,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors("AllowEverything");
+
+var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
+await dbInitializer.InitializeAsync();
 
 app.Run();
