@@ -22,25 +22,30 @@ public class HikeRepository : IRepository<Hike>
         return await _context.Hikes.FindAsync(id);
     }
 
-    public async Task AddAsync(Hike hike)
+    public async Task<Hike> CreateAsync(Hike hike)
     {
         await _context.Hikes.AddAsync(hike);
         await _context.SaveChangesAsync();
+        return hike;
+
     }
 
-    public async Task UpdateAsync(Hike hike)
+    public async Task<bool> UpdateAsync(Hike hike)
     {
         _context.Hikes.Update(hike);
         await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var hike = await _context.Hikes.FindAsync(id);
         if (hike != null)
         {
             _context.Hikes.Remove(hike);
             await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 }

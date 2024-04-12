@@ -9,6 +9,18 @@ public class HikesController(IRepository<Hike> hikeRepository) : ControllerBase
 {
     private readonly IRepository<Hike> _hikeRepository = hikeRepository;
 
+    [HttpPost(ApiEndpoints.Hikes.Create)]
+    public async Task<IActionResult> Create([FromBody] Hike hike)
+    {
+        var reponse = await _hikeRepository.CreateAsync(hike);
+
+        if (reponse is null)
+        {
+            return BadRequest();
+        }
+        return CreatedAtAction(nameof(GetById), new { id = reponse.Id }, reponse);
+    }
+
     [HttpGet(ApiEndpoints.Hikes.GetAll)]
     public async Task<IActionResult> GetAll()
     {

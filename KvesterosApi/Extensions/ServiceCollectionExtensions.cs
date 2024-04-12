@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using System.Reflection;
 
+namespace KvesterosApi.Extensions;
+
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services, Assembly assembly)
