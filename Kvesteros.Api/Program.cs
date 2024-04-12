@@ -1,5 +1,4 @@
 using Kvesteros.Api;
-using Kvesteros.Api.Configuration;
 using Kvesteros.Api.Extensions;
 using Kvesteros.Api.Repository;
 using Kvesteros.Api.Services;
@@ -29,16 +28,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDatabase(configuration["Database:ConnectionString"]!);
 
-var imageStorageSettings = new ImageStorageSettings();
-builder.Configuration.GetSection("ImageStorageSettings").Bind(imageStorageSettings);
-builder.Services.AddSingleton(imageStorageSettings);
-
-builder.Services.AddSingleton<IImageStorageService>(serviceProvider =>
-{
-    // Resolve ImageStorageSettings from DI container
-    var settings = serviceProvider.GetRequiredService<ImageStorageSettings>();
-    return new LocalImageStorageService(settings.FolderPath);
-});
+builder.Services.AddSingleton<IImageStorageService>(_ =>
+    new LocalImageStorageService(configuration["ImageStorageSettings:FolderPath"]!));
 
 var app = builder.Build();
 
