@@ -1,24 +1,24 @@
-using Kvesteros.Api.Models;
-using Kvesteros.Api.Repository;
+using Kvesteros.Application.Models;
+using Kvesteros.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kvesteros.Api.Controllers;
 
 [ApiController]
-public class HikesController(IRepository<Hike> hikeRepository) : ControllerBase
+public class HikesController(IHikeRepository hikeRepository) : ControllerBase
 {
-    private readonly IRepository<Hike> _hikeRepository = hikeRepository;
+    private readonly IHikeRepository _hikeRepository = hikeRepository;
 
     [HttpPost(ApiEndpoints.Hikes.Create)]
     public async Task<IActionResult> Create([FromBody] Hike hike)
     {
         var reponse = await _hikeRepository.CreateAsync(hike);
 
-        if (reponse is null)
+        if (!reponse)
         {
             return BadRequest();
         }
-        return CreatedAtAction(nameof(GetById), new { id = reponse.Id }, reponse);
+        return CreatedAtAction(nameof(GetById), new { id = 1 }, reponse);
     }
 
     [HttpGet(ApiEndpoints.Hikes.GetAll)]
@@ -30,7 +30,7 @@ public class HikesController(IRepository<Hike> hikeRepository) : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Hikes.Get)]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var hike = await _hikeRepository.GetByIdAsync(id);
 

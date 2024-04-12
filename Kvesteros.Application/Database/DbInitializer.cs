@@ -15,8 +15,10 @@ public class DbInitializer(IDbConnectionFactory dbConnectionFactory)
             (
                 id UUID PRIMARY KEY,
                 name TEXT NOT NULL,
+                description TEXT,
+                route TEXT,
                 slug TEXT NOT NULL,
-                yearofrelease INTEGER NOT NULL
+                distance DOUBLE PRECISION NOT NULL
             )
         """);
 

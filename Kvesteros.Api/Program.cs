@@ -1,6 +1,3 @@
-using Kvesteros.Api;
-using Kvesteros.Api.Extensions;
-using Kvesteros.Api.Repository;
 using Kvesteros.Api.Services;
 using Kvesteros.Application;
 using Kvesteros.Application.Database;
@@ -11,8 +8,6 @@ var configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ApplicationDbContext>();
-builder.Services.AddRepositories(typeof(HikeRepository).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,7 +22,6 @@ builder.Services.AddCors(options =>
     });
 
 builder.Services.AddDatabase(configuration["Database:ConnectionString"]!);
-
 builder.Services.AddSingleton<IImageStorageService>(_ =>
     new LocalImageStorageService(configuration["ImageStorageSettings:FolderPath"]!));
 
