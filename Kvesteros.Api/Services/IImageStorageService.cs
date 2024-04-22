@@ -1,7 +1,6 @@
-namespace Kvesteros.Api.Services
+namespace Kvesteros.Api.Services;
+
+public interface IImageStorageService
 {
-    public interface IImageStorageService
-    {
-        public Task<string> StoreImageAsync(IFormFile file);
-    }
+    public Task<string> StoreImageAsync(IFormFile file);
 }

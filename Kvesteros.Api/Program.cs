@@ -21,7 +21,9 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader());
     });
 
+builder.Services.AddApplication();
 builder.Services.AddDatabase(configuration["Database:ConnectionString"]!);
+
 builder.Services.AddSingleton<IImageStorageService>(_ =>
     new LocalImageStorageService(configuration["ImageStorageSettings:FolderPath"]!));
 

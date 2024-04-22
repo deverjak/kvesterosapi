@@ -12,13 +12,13 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
     [HttpPost(ApiEndpoints.Hikes.Create)]
     public async Task<IActionResult> Create([FromBody] Hike hike)
     {
-        var reponse = await _hikeRepository.CreateAsync(hike);
+        var response = await _hikeRepository.CreateAsync(hike);
 
-        if (!reponse)
+        if (!response)
         {
             return BadRequest();
         }
-        return CreatedAtAction(nameof(GetById), new { id = 1 }, reponse);
+        return CreatedAtAction(nameof(GetByIdOrSlug), new { idOrSlug = hike.Id }, response);
     }
 
     [HttpGet(ApiEndpoints.Hikes.GetAll)]
@@ -30,9 +30,11 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Hikes.Get)]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetByIdOrSlug([FromRoute] string idOrSlug)
     {
-        var hike = await _hikeRepository.GetByIdAsync(id);
+        var hike = Guid.TryParse(idOrSlug, out var id)
+            ? await _hikeRepository.GetByIdAsync(id)
+            : await _hikeRepository.GetBySlugAsync(idOrSlug);
 
         if (hike == null)
         {

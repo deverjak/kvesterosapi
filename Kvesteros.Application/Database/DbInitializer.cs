@@ -27,6 +27,17 @@ public class DbInitializer(IDbConnectionFactory dbConnectionFactory)
             USING BTREE(slug);
             """);
 
+        await connection.ExecuteAsync("""
+            CREATE TABLE IF NOT EXISTS hike_images
+            (
+                id UUID PRIMARY KEY,
+                path TEXT NOT NULL,
+                title TEXT NOT NULL,
+                hike_id UUID NOT NULL,
+                CONSTRAINT fk_hike_id FOREIGN KEY (hike_id) REFERENCES hikes(id)
+            )
+        """);
+
     }
 
 }
