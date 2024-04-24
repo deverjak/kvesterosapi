@@ -51,7 +51,7 @@ public class HikeImagesController(
     [HttpGet(ApiEndpoints.HikeImages.Get)]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var image = await _hikeRepository.GetByIdAsync(id);
+        var image = await _imageRepository.GetByIdAsync(id);
         if (image == null)
         {
             return NotFound();
