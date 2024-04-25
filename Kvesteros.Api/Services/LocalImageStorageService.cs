@@ -4,6 +4,11 @@ public class LocalImageStorageService(string localFolderPath) : IImageStorageSer
 {
     private readonly string _folderPath = localFolderPath;
 
+    public Task DeleteImageAsync(string filePath)
+    {
+        return Task.CompletedTask;
+    }
+
     public async Task<string> StoreImageAsync(IFormFile file)
     {
         var filePath = Path.Combine(_folderPath, file.FileName);

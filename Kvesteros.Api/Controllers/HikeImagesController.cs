@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Kvesteros.Api.Services;
 using Kvesteros.Application.Models;
 using Kvesteros.Application.Repositories;
@@ -12,11 +13,13 @@ public record ImageDTO(Guid HikeId, IFormFile File, string Title);
 public class HikeImagesController(
         IImageStorageService storageService,
         IHikeImageRepository imageRepository,
-        IHikeRepository hikeRepository) : ControllerBase
+        IHikeRepository hikeRepository,
+        ILogger<HikeImagesController> logger) : ControllerBase
 {
     private readonly IImageStorageService _storageService = storageService;
     private readonly IHikeImageRepository _imageRepository = imageRepository;
     private readonly IHikeRepository _hikeRepository = hikeRepository;
+    private readonly ILogger<HikeImagesController> _logger = logger;
 
     [HttpPost(ApiEndpoints.HikeImages.Create)]
     public async Task<IActionResult> UploadImage([FromForm] ImageDTO dto)
@@ -32,8 +35,6 @@ public class HikeImagesController(
             return BadRequest("No hike found with the provided id.");
         }
 
-        //TODO: make database write/image upload transactional/atomical
-
         var filePath = await _storageService.StoreImageAsync(dto.File);
         var image = new HikeImage
         {
@@ -42,9 +43,18 @@ public class HikeImagesController(
             Title = dto.Title,
             Path = filePath
         };
-        await _imageRepository.CreateAsync(image);
-
+        try
+        {
+            await _imageRepository.CreateAsync(image);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while uploading image for hike ID: {HikeId}", dto.HikeId);
+            await _storageService.DeleteImageAsync(filePath);
+            return StatusCode(500, "An error occurred while saving the image.");
+        }
         return CreatedAtAction(nameof(GetById), new { id = image.Id }, image);
+
 
     }
 
