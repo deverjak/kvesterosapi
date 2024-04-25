@@ -9,6 +9,7 @@ public partial class Hike
     public string Description { get; set; } = string.Empty;
     public required double Distance { get; set; }
     public string Route { get; set; } = string.Empty;
+    public IEnumerable<HikeImage> Images { get; set; } = [];
     public string Slug => GenerateSlug();
 
     private string GenerateSlug()

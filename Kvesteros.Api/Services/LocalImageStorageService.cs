@@ -6,6 +6,16 @@ public class LocalImageStorageService(string localFolderPath) : IImageStorageSer
 
     public Task DeleteImageAsync(string filePath)
     {
+        var fullPath = Path.Combine(_folderPath, filePath);
+
+        if (File.Exists(fullPath))
+        {
+            File.Delete(fullPath);
+        }
+        else
+        {
+            throw new FileNotFoundException($"The file {filePath} was not found.");
+        }
         return Task.CompletedTask;
     }
 

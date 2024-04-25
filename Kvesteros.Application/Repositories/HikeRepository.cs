@@ -21,18 +21,31 @@ public class HikeRepository(IDbConnectionFactory dbConnectionFactory) : IHikeRep
     public async Task<IEnumerable<Hike>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
-        var result = await connection.QueryAsync(new CommandDefinition("""
-            SELECT * FROM hikes
-        """, cancellationToken: cancellationToken));
+        var hikeDictionary = new Dictionary<Guid, Hike>();
 
-        return result.Select(x => new Hike
-        {
-            Id = x.id,
-            Name = x.name,
-            Description = x.description,
-            Route = x.route,
-            Distance = x.distance
-        });
+        await connection.QueryAsync<Hike, HikeImage, Hike>(
+            new CommandDefinition("""
+            SELECT h.*, hi.id, hi.hike_id as HikeId, hi.path, hi.title FROM hikes h
+            LEFT JOIN hike_images hi ON h.id = hi.hike_id
+        """, cancellationToken: cancellationToken),
+            (hike, image) =>
+            {
+                if (!hikeDictionary.TryGetValue(hike.Id, out var hikeEntry))
+                {
+                    hikeEntry = hike;
+                    hikeEntry.Images = [];
+                    hikeDictionary.Add(hikeEntry.Id, hikeEntry);
+                }
+
+                if (image != null)
+                {
+                    hikeEntry.Images = [.. hikeEntry.Images, image];
+                }
+                return hikeEntry;
+            },
+            splitOn: "id");
+
+        return hikeDictionary.Values.ToList();
     }
 
     public async Task<Hike?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -41,6 +54,17 @@ public class HikeRepository(IDbConnectionFactory dbConnectionFactory) : IHikeRep
         var hike = await connection.QueryFirstOrDefaultAsync<Hike>(new CommandDefinition("""
             SELECT * FROM hikes WHERE id = @id
         """, new { id }, cancellationToken: cancellationToken));
+
+        if (hike is null)
+            return null;
+
+
+        var hikeImages = await connection.QueryAsync<HikeImage>(new CommandDefinition("""
+            SELECT id, hike_id as HikeId, path, title FROM hike_images WHERE hike_id = @id
+        """, new { id }, cancellationToken: cancellationToken));
+
+
+        hike.Images = hikeImages ?? [];
 
         return hike;
     }
@@ -51,6 +75,17 @@ public class HikeRepository(IDbConnectionFactory dbConnectionFactory) : IHikeRep
         var hike = await connection.QueryFirstOrDefaultAsync<Hike>(new CommandDefinition("""
             SELECT * FROM hikes WHERE slug = @slug
         """, new { slug }, cancellationToken: cancellationToken));
+
+        if (hike is null)
+            return null;
+
+
+        var hikeImages = await connection.QueryAsync<HikeImage>(new CommandDefinition("""
+            SELECT id, hike_id as HikeId, path, title FROM hike_images WHERE hike_id = @id
+        """, new { id = hike.Id }, cancellationToken: cancellationToken));
+
+
+        hike.Images = hikeImages ?? [];
 
         return hike;
     }
