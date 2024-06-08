@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kvesteros.Application\Kvesteros.Application.csproj" />
+    <ProjectReference Include="..\Kvesteros.Api.Contracts\Kvesteros.Api.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

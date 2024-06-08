@@ -1,6 +1,8 @@
 using Kvesteros.Application.Models;
 using Kvesteros.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Kvesteros.Api.Contracts.Requests;
+using Kvesteros.Api.Mappings;
 
 namespace Kvesteros.Api.Controllers;
 
@@ -10,8 +12,9 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
     private readonly IHikeRepository _hikeRepository = hikeRepository;
 
     [HttpPost(ApiEndpoints.Hikes.Create)]
-    public async Task<IActionResult> Create([FromBody] Hike hike)
+    public async Task<IActionResult> Create([FromBody] CreateHikeRequest hikeRequest)
     {
+        var hike = hikeRequest.MapToHike();
         var response = await _hikeRepository.CreateAsync(hike);
 
         if (!response)
