@@ -26,7 +26,7 @@ public class HikeImagesControllerTest
         imageRepository.CreateAsync(Arg.Any<HikeImage>()).Returns(Task.FromException<bool>(new Exception()));
         storageService.StoreImageAsync(Arg.Any<IFormFile>()).Returns(Task.FromResult("path"));
 
-        var dto = new ImageDTO(hikeId, new FormFile(new MemoryStream(), 0, 10, "file", "file.jpg"), "title");
+        var dto = new ImageDto(hikeId, new FormFile(new MemoryStream(), 0, 10, "file", "file.jpg"), "title");
         var controller = new HikeImagesController(storageService, imageRepository, hikeRepository, logger);
 
         var response = await controller.UploadImage(dto);

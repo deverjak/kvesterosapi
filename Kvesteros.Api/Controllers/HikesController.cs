@@ -1,4 +1,3 @@
-using Kvesteros.Application.Models;
 using Kvesteros.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Kvesteros.Api.Contracts.Requests;
@@ -42,6 +41,28 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
         if (hike == null)
         {
             return NotFound();
+        }
+
+        return Ok(hike);
+    }
+
+    [HttpPut(ApiEndpoints.Hikes.Update)]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateHikeRequest hikeRequest)
+    {
+        var hikeExists = await _hikeRepository.ExistsByIdAsync(id);
+
+        if (!hikeExists)
+        {
+            return NotFound();
+        }
+
+        var hike = hikeRequest.MapToHike(id);
+
+        var response = await _hikeRepository.UpdateAsync(hike);
+
+        if (!response)
+        {
+            return BadRequest();
         }
 
         return Ok(hike);

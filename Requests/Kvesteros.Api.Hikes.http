@@ -1,0 +1,30 @@
+@host = http://localhost:5022/api
+
+###
+
+POST {{host}}/hikes 
+Content-Type: application/json
+
+{
+  "name": "Searching Goetrail",
+  "description": "Short trip",
+  "distance": 2.76,
+  "route": "<gpx>..</gpx>"
+}
+
+###
+
+GET {{host}}/hikes 
+Content-Type: application/json
+
+###
+@id = 98d7584c-c1f3-4478-a536-be22ee82277e
+PUT {{host}}/hikes/ {{id}}
+Content-Type: application/json
+
+{
+  "name": "Searching Goetrail in Kvesteros",
+  "description": "Short trip",
+  "distance": 3.14,
+  "route": "<gpx>..</gpx>"
+}

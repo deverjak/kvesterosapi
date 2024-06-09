@@ -16,4 +16,16 @@ public static class ContractMapping
             Route = request.Route
         };
     }
+
+    public static Hike MapToHike(this UpdateHikeRequest request, Guid id)
+    {
+        return new Hike
+        {
+            Id = id,
+            Name = request.Name,
+            Description = request.Description,
+            Distance = request.Distance,
+            Route = request.Route
+        };
+    }
 }
