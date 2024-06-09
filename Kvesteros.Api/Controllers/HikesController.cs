@@ -68,4 +68,24 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
         return Ok(hike);
     }
 
+    [HttpDelete(ApiEndpoints.Hikes.Delete)]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        var hikeExists = await _hikeRepository.ExistsByIdAsync(id);
+
+        if (!hikeExists)
+        {
+            return NotFound();
+        }
+
+        var response = await _hikeRepository.DeleteAsync(id);
+
+        if (!response)
+        {
+            return BadRequest();
+        }
+
+        return NoContent();
+    }
+
 }
