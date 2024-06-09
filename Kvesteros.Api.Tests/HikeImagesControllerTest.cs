@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Kvesteros.Application.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Kvesteros.Api.Contracts.Requests;
 
 namespace Kvesteros.Api.Tests;
 
@@ -26,7 +27,13 @@ public class HikeImagesControllerTest
         imageRepository.CreateAsync(Arg.Any<HikeImage>()).Returns(Task.FromException<bool>(new Exception()));
         storageService.StoreImageAsync(Arg.Any<IFormFile>()).Returns(Task.FromResult("path"));
 
-        var dto = new ImageDto(hikeId, new FormFile(new MemoryStream(), 0, 10, "file", "file.jpg"), "title");
+        var dto = new UploadImageRequest
+        {
+            HikeId = hikeId,
+            Title = "title",
+            File = new FormFile(new MemoryStream(), 0, 10, "file", "file.jpg")
+        };
+
         var controller = new HikeImagesController(storageService, imageRepository, hikeRepository, logger);
 
         var response = await controller.UploadImage(dto);

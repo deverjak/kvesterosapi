@@ -28,7 +28,7 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
     {
         var hikes = await _hikeRepository.GetAllAsync();
 
-        return Ok(hikes);
+        return Ok(hikes.MapToResponse());
     }
 
     [HttpGet(ApiEndpoints.Hikes.Get)]
@@ -43,7 +43,7 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
             return NotFound();
         }
 
-        return Ok(hike);
+        return Ok(hike.MapToResponse());
     }
 
     [HttpPut(ApiEndpoints.Hikes.Update)]
@@ -65,7 +65,7 @@ public class HikesController(IHikeRepository hikeRepository) : ControllerBase
             return BadRequest();
         }
 
-        return Ok(hike);
+        return Ok(hike.MapToResponse());
     }
 
     [HttpDelete(ApiEndpoints.Hikes.Delete)]

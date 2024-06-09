@@ -1,12 +1,10 @@
+using Kvesteros.Api.Contracts.Requests;
+using Kvesteros.Api.Mappings;
 using Kvesteros.Api.Services;
-using Kvesteros.Application.Models;
 using Kvesteros.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kvesteros.Api.Controllers;
-
-//TODO: Move to contracts, verify IFormFile makes sense in this case
-public record ImageDto(Guid HikeId, IFormFile File, string Title);
 
 [ApiController]
 public class HikeImagesController(
@@ -21,34 +19,28 @@ public class HikeImagesController(
     private readonly ILogger<HikeImagesController> _logger = logger;
 
     [HttpPost(ApiEndpoints.HikeImages.Create)]
-    public async Task<IActionResult> UploadImage([FromForm] ImageDto dto)
+    public async Task<IActionResult> UploadImage([FromForm] UploadImageRequest imageRequest)
     {
-        if (dto.File == null || dto.File.Length == 0)
+        if (imageRequest.File == null || imageRequest.File.Length == 0)
         {
             return BadRequest("No file is provided.");
         }
 
-        var hikeId = dto.HikeId;
+        var hikeId = imageRequest.HikeId;
         if (!await _hikeRepository.ExistsByIdAsync(hikeId))
         {
             return BadRequest("No hike found with the provided id.");
         }
 
-        var filePath = await _storageService.StoreImageAsync(dto.File);
-        var image = new HikeImage
-        {
-            Id = Guid.NewGuid(),
-            HikeId = hikeId,
-            Title = dto.Title,
-            Path = filePath
-        };
+        var filePath = await _storageService.StoreImageAsync(imageRequest.File);
+        var image = imageRequest.MapToHikeImage(filePath);
         try
         {
             await _imageRepository.CreateAsync(image);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred while uploading image for hike ID: {HikeId}", dto.HikeId);
+            _logger.LogError(ex, "Error occurred while uploading image for hike ID: {HikeId}", imageRequest.HikeId);
             await _storageService.DeleteImageAsync(filePath);
             return StatusCode(500, "An error occurred while saving the image.");
         }
@@ -65,6 +57,6 @@ public class HikeImagesController(
         {
             return NotFound();
         }
-        return Ok(image);
+        return Ok(image.MapToResponse());
     }
 }
