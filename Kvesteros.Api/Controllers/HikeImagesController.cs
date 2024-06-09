@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Kvesteros.Api.Services;
 using Kvesteros.Application.Models;
 using Kvesteros.Application.Repositories;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Kvesteros.Api.Controllers;
 
 //TODO: Move to contracts, verify IFormFile makes sense in this case
-public record ImageDTO(Guid HikeId, IFormFile File, string Title);
+public record ImageDto(Guid HikeId, IFormFile File, string Title);
 
 [ApiController]
 public class HikeImagesController(
@@ -22,7 +21,7 @@ public class HikeImagesController(
     private readonly ILogger<HikeImagesController> _logger = logger;
 
     [HttpPost(ApiEndpoints.HikeImages.Create)]
-    public async Task<IActionResult> UploadImage([FromForm] ImageDTO dto)
+    public async Task<IActionResult> UploadImage([FromForm] ImageDto dto)
     {
         if (dto.File == null || dto.File.Length == 0)
         {
