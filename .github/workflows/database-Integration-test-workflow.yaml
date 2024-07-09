@@ -39,9 +39,9 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build .\Kvesteros.Api\ --no-restore
+        run: dotnet build ./Kvesteros.Api/ --no-restore
 
       - name: Test
-        run: dotnet test .\Kvesteros.Api.Tests\   --no-restore --verbosity normal
+        run: dotnet test ./Kvesteros.Api.Tests/   --no-restore --verbosity normal
         env:
           CONNECTION_STRING: "Host=localhost;Port=5435;Database=hikes;Username=deverjak;Password=password"
