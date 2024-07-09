@@ -1,0 +1,47 @@
+name: Database Integration Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: deverjak
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: hikes
+        ports:
+          - 5435:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build .\Kvesteros.Api\ --no-restore
+
+      - name: Test
+        run: dotnet test .\Kvesteros.Api.Tests\   --no-restore --verbosity normal
+        env:
+          CONNECTION_STRING: "Host=localhost;Port=5435;Database=hikes;Username=deverjak;Password=password"
