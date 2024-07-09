@@ -27,9 +27,12 @@ public class HikeImageRepository(IDbConnectionFactory dbConnectionFactory) : IHi
         throw new NotImplementedException();
     }
 
-    public Task<HikeImage?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<HikeImage?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        return await connection.QueryFirstOrDefaultAsync<HikeImage>(new CommandDefinition("""
+            SELECT id, hike_id as HikeId, path, title FROM hike_images WHERE id = @id
+        """, new { Id = id }, cancellationToken: cancellationToken));
     }
 
     public Task<bool> UpdateAsync(HikeImage image, CancellationToken cancellationToken = default)
